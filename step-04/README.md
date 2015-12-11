@@ -32,6 +32,9 @@ Now we need to modify the controllers of Angular Beers to call our new server in
       }]);
 
 
+![Beer list](/assets/step-04-beerlist-withoutpics.png)
+
+## Where are my pics?
 
 We still have a problem with the images' path. We could correct it by modifying the JSON... but let's do it in the express way, by adding a route specifically for that:
 
