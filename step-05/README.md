@@ -75,4 +75,40 @@ And then we can call that function in our `/beers` route:
     });
 
 
-![Beer list](/assets/step-04-beerlist.png)
+![Beer list](/assets/step-05-beerlist.png)
+
+
+## And about the beer details?
+
+We begin by crating a function to query for a beer:
+
+    var findBeer = function(db, beerId, callback) {
+       var cursor =db.collection('beers').find({id: beerId} );
+       var beer;
+       cursor.each(function(err, doc) {
+          assert.equal(err, null);
+          if (doc != null) {
+            beer = doc;
+          } else {
+             callback(beer);
+          }
+       });
+    };
+
+And like for the beer list, now we call it from the `/beer/:beerId` route:
+
+    app.get('/beer/:beerId', function (req, res) {
+      console.log('Received request for '+req.param('beerId')+' from', req.ip)
+      MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        findBeer(db, req.param('beerId'),  function(beer) {
+          console.log(beer)
+          res.json(beer);
+          db.close();
+        });
+
+      });
+    });    
+
+
+![Beer list](/assets/step-05-beerdetails.png)
