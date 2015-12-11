@@ -8,7 +8,8 @@ app.get('/beers', function (req, res) {
 
 app.get('/beer/:beerId', function (req, res) {
   console.log('Received request for '+req.param('beerId')+' from', req.ip)
-  res.send('Hello beer '+req.param('beerId'));
+  var beerDetails = require('./beers/'+req.param('beerId')+'.json');
+  res.json(beerDetails);
 });
 
 

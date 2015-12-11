@@ -6,7 +6,7 @@ Now we need to copy the `beers` folder from the root of this tutorial into the `
 
 When done, you can proceed.
 
-## Reading beer from JSON file
+## Reading beer list from JSON file
 
 With node you read a JSON file simply by using `require`:
 
@@ -31,3 +31,20 @@ Now we can modify the route to send back the beer list:
       console.log('Received request for beers from', req.ip)
       res.json(beerList);
     });
+
+
+![Beer list](/assets/step-03-beerlist.png)
+
+## Getting beer details
+
+Now we want to be able to serve the beer details using the `/beer/:beerId` route.
+The easiest way would be to load the right JSON file at each request and send it back to the
+client:
+
+    app.get('/beer/:beerId', function (req, res) {
+      console.log('Received request for '+req.param('beerId')+' from', req.ip)
+      var beerDetails = require('./beers/'+req.param('beerId')+'.json');
+      res.json(beerDetails);
+    });
+
+![Beer details](/assets/step-03-beerdetails.png)    
