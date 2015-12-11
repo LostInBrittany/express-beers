@@ -1,0 +1,11 @@
+{
+  "name": "express-beers",
+  "version": "1.0.0",
+  "description": "Express-Beers",
+  "main": "index.js",
+  "author": "Horacio. Gonzalez <horacio.gonzalez@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}

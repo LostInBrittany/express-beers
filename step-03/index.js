@@ -7,8 +7,8 @@ app.get('/beers', function (req, res) {
 });
 
 app.get('/beer/:beerId', function (req, res) {
-  console.log('Received request for '+req.params['beerId']+' from', req.ip)
-  res.send('Hello beer '+req.params['beerId']);
+  console.log('Received request for '+req.param('beerId')+' from', req.ip)
+  res.send('Hello beer '+req.param('beerId'));
 });
 
 
