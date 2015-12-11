@@ -28,8 +28,8 @@ Let's begin by defining the routes on Express:
     });
 
     app.get('/beer/:beerId', function (req, res) {
-      console.log('Received request for '+req.param('beerId')+' from', req.ip)
-      res.send('Hello beer '+req.param('beerId'));
+      console.log('Received request for '+req.params['beerId']+' from', req.ip)
+      res.send('Hello beer '+req.params['beerId']);
     });
 
 And the two static files folders:
