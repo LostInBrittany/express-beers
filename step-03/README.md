@@ -1,4 +1,4 @@
-# ExpressJS - Step 02 - Getting beer list
+# ExpressJS - Step 03 - Getting beer list
 
 ## Getting the beers files
 
