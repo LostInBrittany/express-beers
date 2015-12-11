@@ -1,4 +1,4 @@
-# ExpressJS - Step 04 - Mongo Beers
+# ExpressJS - Step 05 - Mongo Beers
 
 Let's say you already have your beers in a MongoDB database. Now we are going to replace our local JSON files with calls to MongoDB.
 
@@ -26,6 +26,8 @@ And we get it added to the `package.json`:
       }
     }
 
+## Connecting to Mongo
+
 Now in our `index.js` we are going to get a `MongoClient` variable:
 
     var MongoClient = require('mongodb').MongoClient;
@@ -40,7 +42,7 @@ Connect using the `MongoClient` to your running `mongod` instance by specifying 
     });
 
 
-## Ask for the beer listen
+## Ask for the beer list
 
 Let's begin by coding a function that queries Mongo to get the beer list:
 
@@ -72,4 +74,5 @@ And then we can call that function in our `/beers` route:
       });
     });
 
-    
+
+![Beer list](/assets/step-04-beerlist.png)
