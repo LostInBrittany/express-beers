@@ -1,7 +1,7 @@
 # ExpressJS - Step  01
 
 
-# Initialize npm
+## Initialize npm
 
 Let's begin by initializing npm
 
