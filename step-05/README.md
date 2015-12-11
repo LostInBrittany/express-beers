@@ -2,6 +2,17 @@
 
 Let's say you already have your beers in a MongoDB database. Now we are going to replace our local JSON files with calls to MongoDB.
 
+> In order to do this step you need to have your beer data in a MongoDB database.
+> How to do it is outside the scope of this tutorial, but if you only want to do a quicktest, you could:
+>
+> - Install MongoDB (see http://mongodb.com/)
+> - Start the MongoDB daemon (usually with the command `mongod`)
+> - Use `mongoimport` command line tool to import the detailed JSON datafiles
+>
+>      mongoimport --db test --collection beers beers/AffligemBlond.json
+>      mongoimport --db test --collection beers beers/AffligemDubbel.json
+>      ...   
+
 
 ## Adding the MongoDB driver dependency
 
