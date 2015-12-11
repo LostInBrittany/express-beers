@@ -1,8 +1,8 @@
-# ExpressJS - Step 04 - Serving the webapp
+# ExpressJS - Step 03 - JSON beers
 
-## Getting the webapp files
+##Getting the beers files
 
-Now we need to copy the `public` folder from the root of this tutorial into the `app` folder, as express will look for them there. In this `public` folder I have simply placed the l
+Now we need to copy the beers folder from the root of this tutorial into the app folder, as express will look for them there.
 
 When done, you can proceed.
 
