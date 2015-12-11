@@ -1,38 +1,33 @@
-# ExpressJS - Step  02
+# ExpressJS - Step 02 - Getting beer list
 
-## Getting the image files
+## Getting the beers files
 
-Now we need to copy the `img` folder from the root of this tutorial into the `app` folder, as express will look for them there.
+Now we need to copy the `beers` folder from the root of this tutorial into the `app` folder, as express will look for them there.
 
 When done, you can proceed.
 
-## Defining the routes
+## Reading beer from JSON file
 
-We are going to define the routes we need for our API application.
+With node you read a JSON file simply by using `require`:
 
-As we want to build a backend for [Angular Beers]() or [Polymer Beers]() applications,
-we need to define:
+    var myData = require('./data.json');
 
-- `GET /beers`: the list of beers, with name, description, alcohol content and image URL for each beers
-- `GET /beer/<beerId>`: to get the detail of a beer
+We are going to use this technique to get the beer list info needed in the `/beers` route:
 
-And we also want to serve as static files all the content of the `public` folder
-(either [Angular Beers]() or [Polymer Beers]()), and all the content of the `img` folder
-at the `/img` path.
+    var beerList = require('./beers/beers.json');
+    console.log("Beers", beerList)
 
-Let's begin by defining the routes on Express:
+    var server = app.listen(3000, function () {
+      var host = server.address().address;
+      var port = server.address().port;
+      console.log('Listening at http://%s:%s', host, port);
+    });
+
+
+So we have a `beerList` variable that contains the info needed for the `/beers` route.
+Now we can modify the route to send back the beer list:
 
     app.get('/beers', function (req, res) {
       console.log('Received request for beers from', req.ip)
-      res.send('Hello beers');
+      res.json(beerList);
     });
-
-    app.get('/beer/:beerId', function (req, res) {
-      console.log('Received request for '+req.param('beerId')+' from', req.ip)
-      res.send('Hello beer '+req.param('beerId'));
-    });
-
-And the two static files folders:
-
-    app.use('/img', express.static('img'));
-    app.use(express.static('public'));

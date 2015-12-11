@@ -3,7 +3,7 @@ var app = express();
 
 app.get('/beers', function (req, res) {
   console.log('Received request for beers from', req.ip)
-  res.send('Hello beers');
+  res.json(beerList);
 });
 
 app.get('/beer/:beerId', function (req, res) {
@@ -14,6 +14,10 @@ app.get('/beer/:beerId', function (req, res) {
 
 app.use('/img', express.static('img'));
 app.use(express.static('public'));
+
+
+var beerList = require('./beers/beers.json');
+console.log("Beers", beerList)
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

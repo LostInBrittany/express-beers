@@ -1,4 +1,4 @@
-# ExpressJS - Step  02
+# ExpressJS - Step 02 - Basic routing
 
 ## Getting the image files
 

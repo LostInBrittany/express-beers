@@ -1,4 +1,4 @@
-# ExpressJS - Step  01
+# ExpressJS - Step 01 - Hello World!
 
 
 ## Initialize npm
