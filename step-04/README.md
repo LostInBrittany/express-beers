@@ -4,7 +4,9 @@
 
 Now we need to copy the [Angular Beers](https://github.com/LostInBrittany/angular-beers) or the [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) web application into the `app/public` folder, to get it served from the static express route.
 
-For Angular Beers, you can simply get the [step 10 of Angular Beers](https://github.com/LostInBrittany/angular-beers/tree/master/step-10) and copy it into public. For the Polymer version do the same thing with the [step 8 of Polymer Beers](https://github.com/LostInBrittany/polymer-beers/tree/master/step-08).
+For Angular Beers, you can simply get the [step 10 of Angular Beers](https://github.com/LostInBrittany/angular-beers/tree/master/step-10) and copy it into `public`. Then you go to `localhost:3000/index.html` to see the main page of your app.
+
+For the Polymer version copy the [step 8 of Polymer Beers](https://github.com/LostInBrittany/polymer-beers/tree/master/step-08) into `public/app` and then copy the [`bower_components` folder](https://github.com/LostInBrittany/angular-beers/tree/master/bower_components) into `public`. Then you go to `localhost:3000/app/index.html` to see the main page of your app.
 
 In both cases, in order to be sure you're calling the Express server, delete the `data` folder of the webapp, so you don't feel tempted to simply read your JSON files...
 
@@ -43,7 +45,7 @@ In `beer-list` element, modify the `iron-ajax`to to call our new server instead 
 ```
     <iron-ajax
       auto
-      url="../../data/beers/beers.json"
+      url="/beers/beers.json"
       method='get'
       params='{}'
       handle-as="json"
@@ -54,14 +56,9 @@ In `beer-list` element, modify the `iron-ajax`to to call our new server instead 
 Same thing in `beer-details`:
 
 ```
-    <iron-ajax
-      auto
-      url="{{url}}"
-      method='get'
-      params='{}'
-      handle-as="json"
-      on-response="gotBeers"
-      debounce-duration="300"></iron-ajax>
+    getUrl: function(id) {
+      return "/beers/details/"+id+".json";
+    },
 ```
 
 ![Beer list](/assets/step-04-beerlist-withoutpics.png)
