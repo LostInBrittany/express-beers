@@ -25,7 +25,7 @@ A suitable `packager.json` file is generated including the ExpressJS dependency:
       }
     }
 
-## Create a minimal Hello World express append
+## Create a minimal Hello World express
 
 Now we are going to create our first API server in the `index.js` file.
 
