@@ -10,8 +10,8 @@ Let's say you already have your beers in a MongoDB database. Now we are going to
 > - Use `mongoimport` command line tool to import the detailed JSON datafiles
 >
 >    ```
->      mongoimport --db test --collection beers beers/AffligemBlond.json
->      mongoimport --db test --collection beers beers/AffligemDubbel.json
+>      mongoimport --jsonArray --db test --collection beers beers/AffligemBlond.json
+>      mongoimport --jsonArray --db test --collection beers beers/AffligemDubbel.json
 >      ...
 >   ```   
 
