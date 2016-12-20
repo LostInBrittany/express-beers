@@ -2,11 +2,13 @@
 
 ## Getting the webapp files
 
-Now we need to copy the [Angular Beers](https://github.com/LostInBrittany/angular-beers) web application into the `app/public` folder, to get it served from the static express route.
+Now we need to copy the [Angular Beers](https://github.com/LostInBrittany/angular-beers) or the [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) web application into the `app/public` folder, to get it served from the static express route.
 
-You can simply get the [step 10 of Angular Beers](https://github.com/LostInBrittany/angular-beers/tree/master/step-10) and copy it into public.
+For Angular Beers, you can simply get the [step 10 of Angular Beers](https://github.com/LostInBrittany/angular-beers/tree/master/step-10) and copy it into public. For the Polymer version do the same thing with the [step 8 of Polymer Beers](https://github.com/LostInBrittany/polymer-beers/tree/master/step-08).
 
-## Modify the controllers to call the express server
+## Modify the webapp to call the express server
+
+### Angular Beers
 
 Now we need to modify the controllers of Angular Beers to call our new server instead of simply requesting the JSON files.
 
@@ -31,6 +33,10 @@ Now we need to modify the controllers of Angular Beers to call our new server in
         });
       }]);
 
+
+### Polymer Beers
+
+To do :)
 
 ![Beer list](/assets/step-04-beerlist-withoutpics.png)
 
