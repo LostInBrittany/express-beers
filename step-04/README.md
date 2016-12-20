@@ -6,6 +6,8 @@ Now we need to copy the [Angular Beers](https://github.com/LostInBrittany/angula
 
 For Angular Beers, you can simply get the [step 10 of Angular Beers](https://github.com/LostInBrittany/angular-beers/tree/master/step-10) and copy it into public. For the Polymer version do the same thing with the [step 8 of Polymer Beers](https://github.com/LostInBrittany/polymer-beers/tree/master/step-08).
 
+In both cases, in order to be sure you're calling the Express server, delete the `data` folder of the webapp, so you don't feel tempted to simply read your JSON files...
+
 ## Modify the webapp to call the express server
 
 ### Angular Beers
