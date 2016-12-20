@@ -40,12 +40,12 @@ Now we need to modify the controllers of Angular Beers to call our new server in
 
 ### Polymer Beers
 
-In `beer-list` element, modify the `iron-ajax`to to call our new server instead of simply requesting the JSON files:
+In `beer-list` element, modify the `iron-ajax`to to call our new server using the routes defined for express in `index.js` instead of simply requesting the JSON files:
 
 ```
     <iron-ajax
       auto
-      url="/beers/beers.json"
+      url="/beers"
       method='get'
       params='{}'
       handle-as="json"
@@ -57,7 +57,7 @@ Same thing in `beer-details`:
 
 ```
     getUrl: function(id) {
-      return "/beers/details/"+id+".json";
+      return "/beer/"+id;
     },
 ```
 
