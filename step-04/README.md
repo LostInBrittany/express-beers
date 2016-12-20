@@ -36,7 +36,31 @@ Now we need to modify the controllers of Angular Beers to call our new server in
 
 ### Polymer Beers
 
-To do :)
+In `beer-list` element, modify the `iron-ajax`to to call our new server instead of simply requesting the JSON files:
+
+```
+    <iron-ajax
+      auto
+      url="../../data/beers/beers.json"
+      method='get'
+      params='{}'
+      handle-as="json"
+      on-response="gotBeers"
+      debounce-duration="300"></iron-ajax>
+```
+
+Same thing in `beer-details`:
+
+```
+    <iron-ajax
+      auto
+      url="{{url}}"
+      method='get'
+      params='{}'
+      handle-as="json"
+      on-response="gotBeers"
+      debounce-duration="300"></iron-ajax>
+```
 
 ![Beer list](/assets/step-04-beerlist-withoutpics.png)
 
