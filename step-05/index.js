@@ -49,7 +49,7 @@ app.get('/beer/:beerId', function (req, res) {
   MongoClient.connect(url, function(err, client) {
     const db = client.db(dbName);
     assert.equal(null, err);
-    findBeer(db, req.param('beerId'),  function(beer) {
+    findBeer(db, req.params.beerId,  function(beer) {
       console.log(beer)
       res.json(beer);
       client.close();
