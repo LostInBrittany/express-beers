@@ -4,38 +4,13 @@ var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
 
 
-var findBeer = async function(db, beerId) {
-   var cursor =db.collection('beers').find({id: beerId} );
-   // Iterate over the cursor
-   while(await cursor.hasNext()) {
-     const doc = await cursor.next();
-     if (doc != null) {
-      return doc;
-    } 
-  }
-};
-
-var findBeers = async function(db) {
-   let cursor =db.collection('beers').find( );
-
-   let beerList = [];
-  // Iterate over the cursor
-  while(await cursor.hasNext()) {
-    const doc = await cursor.next();
-    if (doc != null) {
-        beerList.push(doc);
-    } 
-  }
-  return beerList;
-};
-
 app.get('/beers', async function (req, res) {
   console.log('Received request for beers from', req.ip);
   let client;
   try {  
     client = await MongoClient.connect(url);
     const db = client.db(dbName);
-    var beerList = await findBeers(db);
+    var beerList = await db.collection('beers').find().toArray();
     res.json(beerList);
   } catch(err) {
     console.log(err.stack);
@@ -49,7 +24,9 @@ app.get('/beer/:beerId', async function (req, res) {
   try {  
     client = await MongoClient.connect(url);
     const db = client.db(dbName);
-    let beer = await findBeer(db, req.params.beerId);
+    let beerId = req.params.beerId;
+    let beerList = await db.collection('beers').find({id: beerId}).toArray(); 
+    let beer = beerList[0];
     console.log(beer);
     res.json(beer);
   } catch(err) {

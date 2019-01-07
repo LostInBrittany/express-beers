@@ -57,22 +57,8 @@ Connect using the `MongoClient` to your running `mongod` instance by specifying 
 
 ## Ask for the beer list
 
-Let's begin by coding a function that queries Mongo to get the beer list:
-
-```js
-var findBeer = async function(db, beerId) {
-   var cursor =db.collection('beers').find({id: beerId} );
-   // Iterate over the cursor
-   while(await cursor.hasNext()) {
-     const doc = await cursor.next();
-     if (doc != null) {
-      return doc;
-    } 
-  }
-};
-```
-
-And then we can call that function in our `/beers` route:
+Let's add a  `/beers` route, with a callback that connects to Mongo and recovers the beer list. 
+We are heavily using the power of [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) to make asynchronous code simple:
 
 ```js
 app.get('/beers', async function (req, res) {
@@ -81,7 +67,7 @@ app.get('/beers', async function (req, res) {
   try {  
     client = await MongoClient.connect(url);
     const db = client.db(dbName);
-    var beerList = await findBeers(db);
+    var beerList = await db.collection('beers').find().toArray();
     res.json(beerList);
   } catch(err) {
     console.log(err.stack);
@@ -95,25 +81,8 @@ app.get('/beers', async function (req, res) {
 
 ## And about the beer details?
 
-We begin by crating a function to query for a beer:
-
-```js
-var findBeers = async function(db) {
-   let cursor =db.collection('beers').find( );
-
-   let beerList = [];
-  // Iterate over the cursor
-  while(await cursor.hasNext()) {
-    const doc = await cursor.next();
-    if (doc != null) {
-        beerList.push(doc);
-    } 
-  }
-  return beerList;
-};
-```
-
-And like for the beer list, now we call it from the `/beer/:beerId` route:
+Like for the beer list, we begin by adding a `/beer/:beerId` route with an `async` callback.
+In the callback we connect to Mongo and find the beer corresponding to `beerId`:
 
 ```js
 app.get('/beer/:beerId', async function (req, res) {
@@ -122,7 +91,9 @@ app.get('/beer/:beerId', async function (req, res) {
   try {  
     client = await MongoClient.connect(url);
     const db = client.db(dbName);
-    let beer = await findBeer(db, req.params.beerId);
+    let beerId = req.params.beerId;
+    let beerList = await db.collection('beers').find({id: beerId}).toArray(); 
+    let beer = beerList[0];
     console.log(beer);
     res.json(beer);
   } catch(err) {
@@ -130,6 +101,7 @@ app.get('/beer/:beerId', async function (req, res) {
   }
   client.close();
 });
+
 ```   
 
 
