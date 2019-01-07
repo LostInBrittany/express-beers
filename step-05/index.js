@@ -4,29 +4,29 @@ var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
 
 
-var findBeer = function(db, beerId, callback) {
+var findBeer = async function(db, beerId, callback) {
    var cursor =db.collection('beers').find({id: beerId} );
-   var beer;
-   cursor.each(function(err, doc) {
-      assert.equal(err, null);
-      if (doc != null) {
-        beer = doc;
-      } else {
-         callback(beer);
-      }
-   });
+   // Iterate over the cursor
+   while(await cursor.hasNext()) {
+     const doc = await cursor.next();
+     if (doc != null) {
+      callback(doc);
+      return;
+    } 
+  }
 };
 
-var findBeers = function(db, beerList,  callback) {
+var findBeers = async function(db, beerList,  callback) {
    var cursor =db.collection('beers').find( );
-   cursor.each(function(err, doc) {
-      assert.equal(err, null);
-      if (doc != null) {
-         beerList.push(doc);
-      } else {
-         callback();
-      }
-   });
+
+  // Iterate over the cursor
+  while(await cursor.hasNext()) {
+    const doc = await cursor.next();
+    if (doc != null) {
+        beerList.push(doc);
+    } 
+  }
+  callback();
 };
 
 app.get('/beers', function (req, res) {
@@ -64,7 +64,7 @@ app.use('/img', express.static('img'));
 app.use(express.static('public'));
 
 var url = 'mongodb://localhost:27017';
-var dbName = 'test'
+var dbName = 'beers'
 
 
 
