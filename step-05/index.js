@@ -4,21 +4,21 @@ var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
 
 
-var findBeer = async function(db, beerId, callback) {
+var findBeer = async function(db, beerId) {
    var cursor =db.collection('beers').find({id: beerId} );
    // Iterate over the cursor
    while(await cursor.hasNext()) {
      const doc = await cursor.next();
      if (doc != null) {
-      callback(doc);
-      return;
+      return doc;
     } 
   }
 };
 
-var findBeers = async function(db, beerList,  callback) {
-   var cursor =db.collection('beers').find( );
+var findBeers = async function(db) {
+   let cursor =db.collection('beers').find( );
 
+   let beerList = [];
   // Iterate over the cursor
   while(await cursor.hasNext()) {
     const doc = await cursor.next();
@@ -26,36 +26,36 @@ var findBeers = async function(db, beerList,  callback) {
         beerList.push(doc);
     } 
   }
-  callback();
+  return beerList;
 };
 
-app.get('/beers', function (req, res) {
-  console.log('Received request for beers from', req.ip)
-
-  MongoClient.connect(url, function(err, client) {
+app.get('/beers', async function (req, res) {
+  console.log('Received request for beers from', req.ip);
+  let client;
+  try {  
+    client = await MongoClient.connect(url);
     const db = client.db(dbName);
-    assert.equal(null, err);
-    var beerList = [];
-    findBeers(db, beerList, function() {
-      res.json(beerList);
-      client.close();
-    });
-
-  });
+    var beerList = await findBeers(db);
+    res.json(beerList);
+  } catch(err) {
+    console.log(err.stack);
+  }
+  client.close();
 });
 
-app.get('/beer/:beerId', function (req, res) {
-  console.log(`Received request for ${req.params.beerId} from ${req.ip}`)
-  MongoClient.connect(url, function(err, client) {
+app.get('/beer/:beerId', async function (req, res) {
+  console.log(`Received request for ${req.params.beerId} from ${req.ip}`);
+  let client;
+  try {  
+    client = await MongoClient.connect(url);
     const db = client.db(dbName);
-    assert.equal(null, err);
-    findBeer(db, req.params.beerId,  function(beer) {
-      console.log(beer)
-      res.json(beer);
-      client.close();
-    });
-
-  });
+    let beer = await findBeer(db, req.params.beerId);
+    console.log(beer);
+    res.json(beer);
+  } catch(err) {
+    console.log(err.stack);
+  }
+  client.close();
 });
 
 
@@ -64,7 +64,7 @@ app.use('/img', express.static('img'));
 app.use(express.static('public'));
 
 var url = 'mongodb://localhost:27017';
-var dbName = 'beers'
+var dbName = 'test'
 
 
 

@@ -59,34 +59,36 @@ Connect using the `MongoClient` to your running `mongod` instance by specifying 
 
 Let's begin by coding a function that queries Mongo to get the beer list:
 
-    var findBeers = async function(db, beerList, callback) {
-      var cursor =db.collection('beers').find( );
-      // Iterate over the cursor
-      while(await cursor.hasNext()) {
-        const doc = await cursor.next();
-        if (doc != null) {
-            beerList.push(doc);
-        } 
-      }
-      callback();
-    };
-
+```js
+var findBeer = async function(db, beerId) {
+   var cursor =db.collection('beers').find({id: beerId} );
+   // Iterate over the cursor
+   while(await cursor.hasNext()) {
+     const doc = await cursor.next();
+     if (doc != null) {
+      return doc;
+    } 
+  }
+};
+```
 
 And then we can call that function in our `/beers` route:
 
-    app.get('/beers', function (req, res) {
-      console.log('Received request for beers from', req.ip)
-      MongoClient.connect(url, function(err, client) {
-        const db = client.db('test');
-        assert.equal(null, err);
-        var beerList = [];
-        findBeers(db, beerList, function() {
-          res.json(beerList);
-          db.close();
-        });
-      });
-    });
-
+```js
+app.get('/beers', async function (req, res) {
+  console.log('Received request for beers from', req.ip);
+  let client;
+  try {  
+    client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    var beerList = await findBeers(db);
+    res.json(beerList);
+  } catch(err) {
+    console.log(err.stack);
+  }
+  client.close();
+});
+```
 
 ![Beer list](/assets/step-05-beerlist.png)
 
@@ -95,33 +97,40 @@ And then we can call that function in our `/beers` route:
 
 We begin by crating a function to query for a beer:
 
-    var findBeer = async function(db, beerId, callback) {
-      var cursor =db.collection('beers').find({id: beerId} );
+```js
+var findBeers = async function(db) {
+   let cursor =db.collection('beers').find( );
 
-      while(await cursor.hasNext()) {
-        const doc = await cursor.next();
-        if (doc != null) {
-          callback(doc);
-          return;
-        } 
-      }
-    };
+   let beerList = [];
+  // Iterate over the cursor
+  while(await cursor.hasNext()) {
+    const doc = await cursor.next();
+    if (doc != null) {
+        beerList.push(doc);
+    } 
+  }
+  return beerList;
+};
+```
 
 And like for the beer list, now we call it from the `/beer/:beerId` route:
 
-    app.get('/beer/:beerId', function (req, res) {
-      console.log('Received request for '+req.param('beerId')+' from', req.ip)
-      MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        const db = client.db('test');
-        findBeer(db, req.param('beerId'),  function(beer) {
-          console.log(beer)
-          res.json(beer);
-          db.close();
-        });
-
-      });
-    });    
+```js
+app.get('/beer/:beerId', async function (req, res) {
+  console.log(`Received request for ${req.params.beerId} from ${req.ip}`);
+  let client;
+  try {  
+    client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    let beer = await findBeer(db, req.params.beerId);
+    console.log(beer);
+    res.json(beer);
+  } catch(err) {
+    console.log(err.stack);
+  }
+  client.close();
+});
+```   
 
 
 ![Beer list](/assets/step-05-beerdetails.png)
