@@ -45,7 +45,7 @@ app.get('/beers', function (req, res) {
 });
 
 app.get('/beer/:beerId', function (req, res) {
-  console.log('Received request for '+req.param('beerId')+' from', req.ip)
+  console.log(`Received request for ${req.params.beerId} from ${req.ip}`)
   MongoClient.connect(url, function(err, client) {
     const db = client.db(dbName);
     assert.equal(null, err);
