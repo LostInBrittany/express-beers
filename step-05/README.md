@@ -34,8 +34,8 @@ And we get it added to the `package.json`:
       "author": "Horacio. Gonzalez <horacio.gonzalez@gmail.com>",
       "license": "MIT",
       "dependencies": {
-        "express": "^4.13.3",
-        "mongodb": "^2.1.0"
+    "express": "^4.16.4",
+    "mongodb": "^3.1.10"
       }
     }
 
@@ -49,9 +49,9 @@ Now in our `index.js` we are going to get a `MongoClient` variable:
 Connect using the `MongoClient` to your running `mongod` instance by specifying the MongoDB URI. For example, the following code connects to a MongoDB instance that runs on the localhost interface on port 27017 and switch to the `beers` database.
 
     var url = 'mongodb://localhost:27017/test';
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function(err, client) {
       console.log("Connected correctly to MongoDB server.");
-      db.close();
+      client.close();
     });
 
 
@@ -59,16 +59,16 @@ Connect using the `MongoClient` to your running `mongod` instance by specifying 
 
 Let's begin by coding a function that queries Mongo to get the beer list:
 
-    var findBeers = function(db, beerList, callback) {
-       var cursor =db.collection('beers').find( );
-       cursor.each(function(err, doc) {
-          assert.equal(err, null);
-          if (doc != null) {
-             beerList.push(doc);
-          } else {
-             callback();
-          }
-       });
+    var findBeers = async function(db, beerList, callback) {
+      var cursor =db.collection('beers').find( );
+      // Iterate over the cursor
+      while(await cursor.hasNext()) {
+        const doc = await cursor.next();
+        if (doc != null) {
+            beerList.push(doc);
+        } 
+      }
+      callback();
     };
 
 
@@ -76,14 +76,14 @@ And then we can call that function in our `/beers` route:
 
     app.get('/beers', function (req, res) {
       console.log('Received request for beers from', req.ip)
-      MongoClient.connect(url, function(err, db) {
+      MongoClient.connect(url, function(err, client) {
+        const db = client.db('test');
         assert.equal(null, err);
         var beerList = [];
         findBeers(db, beerList, function() {
           res.json(beerList);
           db.close();
         });
-
       });
     });
 
@@ -95,25 +95,25 @@ And then we can call that function in our `/beers` route:
 
 We begin by crating a function to query for a beer:
 
-    var findBeer = function(db, beerId, callback) {
-       var cursor =db.collection('beers').find({id: beerId} );
-       var beer;
-       cursor.each(function(err, doc) {
-          assert.equal(err, null);
-          if (doc != null) {
-            beer = doc;
-          } else {
-             callback(beer);
-          }
-       });
+    var findBeer = async function(db, beerId, callback) {
+      var cursor =db.collection('beers').find({id: beerId} );
+
+      while(await cursor.hasNext()) {
+        const doc = await cursor.next();
+        if (doc != null) {
+          callback(doc);
+          return;
+        } 
+      }
     };
 
 And like for the beer list, now we call it from the `/beer/:beerId` route:
 
     app.get('/beer/:beerId', function (req, res) {
       console.log('Received request for '+req.param('beerId')+' from', req.ip)
-      MongoClient.connect(url, function(err, db) {
+      MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
+        const db = client.db('test');
         findBeer(db, req.param('beerId'),  function(beer) {
           console.log(beer)
           res.json(beer);
