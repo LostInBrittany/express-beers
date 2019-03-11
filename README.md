@@ -1,8 +1,10 @@
 # Express-Beers
 
-## A server-side companion to the [Angular Beers](https://github.com/LostInBrittany/angular-beers) and [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) projects
+## A server-side companion to the [Angular Beers](https://github.com/LostInBrittany/angular-beers), [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) and [Vue Beers](https://github.com/LostInBrittany/vue-beers) projects
 
-The [angular-beers](https://github.com/LostInBrittany/angular-beers) project is a small [AngularJS](http://angularjs.org) tutorial that can be used on its own. But IMHO it is a pity to do only the client-side and mocking the server API with plain files. So here we have a companion project where we are going to do the server-side of [angular-beers](https://github.com/LostInBrittany/angular-beers) using [ExpressJS](http://expressjs.org/), tiny [Sinatra](http://www.sinatrarb.com/) inspired framework for creating web applications in NodeJS with minimal effort.
+The [Angular Beers](https://github.com/LostInBrittany/angular-beers) project is a small [Angular](http://angular.io) tutorial that can be used on its own. [Vue Beers]([Polymer Beers](https://github.com/LostInBrittany/polymer-beers) and [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) are similar projects showcasing VueJS and Polymer.
+
+But IMHO it is a pity to do only the client-side and mocking the server API with plain files. So here we have a companion project where we are going to do the server-side of [angular-beers](https://github.com/LostInBrittany/angular-beers) using [ExpressJS](http://expressjs.org/), tiny [Sinatra](http://www.sinatrarb.com/) inspired framework for creating web applications in NodeJS with minimal effort.
 
 ## What are the objectives of this tutorial
 
