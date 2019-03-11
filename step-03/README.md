@@ -1,6 +1,6 @@
 # ExpressJS - Step 03 - JSON beers
 
-##Getting the beers files
+## Getting the beers files
 
 Now we need to copy the beers folder from the root of this tutorial into the app folder, as express will look for them there.
 
