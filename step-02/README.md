@@ -10,14 +10,14 @@ When done, you can proceed.
 
 We are going to define the routes we need for our API application.
 
-As we want to build a backend for [Angular Beers]() or [Polymer Beers]() applications,
+As we want to build a backend for [Angular Beers](), [Polymer Beers]() or [vue-beers]() applications,
 we need to define:
 
 - `GET /beers`: the list of beers, with name, description, alcohol content and image URL for each beers
 - `GET /beer/<beerId>`: to get the detail of a beer
 
 And we also want to serve as static files all the content of the `public` folder
-(either [Angular Beers]() or [Polymer Beers]()), and all the content of the `img` folder
+(either [Angular Beers](), [Polymer Beers]() or [vue-beers]()), and all the content of the `img` folder
 at the `/img` path.
 
 Let's begin by defining the routes on Express:
