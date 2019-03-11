@@ -2,7 +2,7 @@
 
 ## Getting the webapp files
 
-Now we need to copy the [Angular Beers](https://github.com/LostInBrittany/angular-beers) or the [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) web application into the `app/public` folder, to get it served from the static express route.
+Now we need to copy the [Angular Beers](https://github.com/LostInBrittany/angular-beers), [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) or the [Vue Beers](https://github.com/LostInBrittany/vue-beers) web application into the `app/public` folder, to get it served from the static express route.
 
 For Angular Beers, you can simply get the [step 10 of Angular Beers](https://github.com/LostInBrittany/angular-beers/tree/master/step-10) and copy it into `public`. Then you go to `localhost:3000/index.html` to see the main page of your app.
 
