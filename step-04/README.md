@@ -61,6 +61,15 @@ Same thing in `beer-details`:
     },
 ```
 
+### Vue Beers
+
+We just need to modify the `fetch()` URI to call our new server instead of simply requesting the JSON files.
+
+``̀ 
+    // fetchResult = await fetch("../../data/beers/beers.json");
+    fetchResult = await fetch("http://localhost:3000/beers");
+``̀ 
+
 ![Beer list](/assets/step-04-beerlist-withoutpics.png)
 
 ## Where are my pics?
