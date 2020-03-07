@@ -41,7 +41,7 @@ app.use('/img', express.static('img'));
 app.use(express.static('public'));
 
 var url = process.env.MONGODB_ADDON_URI;
-var dbName = 'test'
+var dbName = process.env.MONGODB_ADDON_DB;
 
 
 
