@@ -6,7 +6,8 @@
   "author": "Horacio. Gonzalez <horacio.gonzalez@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./step-05/index.js"
+    "start": "node ./step-05/index.js",
+    "postinstall": "node ./initdb.js"
   },
   "dependencies": {
     "express": "^4.16.4",
