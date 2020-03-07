@@ -40,7 +40,7 @@ app.use('/beers/img', express.static('img'));
 app.use('/img', express.static('img'));
 app.use(express.static('public'));
 
-var url = process.env.MONGO_ADDON_URI;
+var url = process.env.MONGODB_ADDON_URI;
 var dbName = 'test'
 
 
