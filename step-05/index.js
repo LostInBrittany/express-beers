@@ -38,7 +38,7 @@ app.get('/beer/:beerId', async function (req, res) {
 
 app.use('/beers/img', express.static('img'));
 app.use('/img', express.static('img'));
-app.use(express.static('public'));
+app.use(express.static('./step-05/public'));
 
 var url = process.env.MONGODB_ADDON_URI;
 var dbName = process.env.MONGODB_ADDON_DB;
