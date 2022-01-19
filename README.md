@@ -1,6 +1,10 @@
 # Express-Beers
 
-## A server-side companion to the [Angular Beers](https://github.com/LostInBrittany/angular-beers), [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) and [Vue Beers](https://github.com/LostInBrittany/vue-beers) projects
+
+[![Open in GitPod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/LostInBrittany/express-beers)
+
+
+## A server-side companion to the [Angular Beers](https://github.com/LostInBrittany/angular-beers), [Stencil Beers](https://github.com/LostInBrittany/stencil-beers) and [Vue Beers](https://github.com/LostInBrittany/vue-beers) projects
 
 The [Angular Beers](https://github.com/LostInBrittany/angular-beers) project is a small [Angular](http://angular.io) tutorial that can be used on its own. [Vue Beers]([Polymer Beers](https://github.com/LostInBrittany/polymer-beers) and [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) are similar projects showcasing VueJS and Polymer.
 
