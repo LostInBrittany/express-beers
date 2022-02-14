@@ -1,0 +1,199 @@
+<!-- Import Polymer library -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- Import iron-ajax to get the list of beers from the server -->
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="beer-create-edit">
+  <template>
+    <style>
+    </style>
+
+    <div class="container">
+
+      <div class="row">
+        <h1>{{action}} beer</h1>
+      </div>
+        <form>
+            <div class="row">
+            <div class="form-group required col-md-6" >
+                <label for="name" class="control-label">Beer name</label>
+              <input value="{{name::input}}" class="form-control" id="name" 
+                placeholder="A name" type="text" required="true">
+            </div> 
+              <div class="form-group required  col-md-6">
+                <label for="alcohol" class="control-label">Alcohol content</label>
+              <input 
+                value="{{alcohol::input}}" class="form-control" 
+                id="alcohol" placeholder="In degrees" 
+                type="number" min="0" max="30"
+                required="true">
+            </div>
+          </div>
+          <div class="form-group required">
+            <label for="description" class="control-label">Beer description</label>
+            <textarea value="{{description::input}}" class="form-control" id="description" 
+              placeholder="A description" required="true"></textarea>
+          </div>
+          
+          <div class="form-group required">
+              <label for="img" class="control-label">Image URL</label>
+            <input value="{{img::input}}" class="form-control" id="img" 
+              placeholder="URL of the image" type="url" required="true">
+          </div>
+          
+          <div class="row">
+              <div class="form-group col-md-6">
+                <label for="availability" class="control-label">Availability</label>
+              <input value="{{availability::input}}" class="form-control" id="availability" placeholder="Beer availability" type="text">
+            </div>
+            
+            <div class="form-group col-md-6">
+                <label for="brewery" class="control-label">Brewery</label>
+              <input value="{{brewery::input}}" class="form-control" id="brewery" placeholder="Brewery" type="text">
+            </div>
+            
+            <div class="form-group col-md-6">
+                <label for="label" class="control-label">Label image URL</label>
+              <input value="{{label::input}}" class="form-control" id="label" placeholder="URL of the label image" type="url">
+            </div>
+            
+            <div class="form-group col-md-6">
+                <label for="serving" class="control-label">Serving</label>
+              <input value="{{serving::input}}" class="form-control" id="serving" placeholder="Serving advise" type="text">
+            </div>    
+          </div>
+          
+
+            
+          <div class="form-group">
+              <label for="style" class="control-label">Style</label>
+            <input value="{{style::input}}" class="form-control" id="style" placeholder="Serving style" type="text">
+          </div>
+        </form>
+        
+        <div class="row">
+          <h1 class="btn btn-success" on-click="doAction">Validate</h1>
+      </div>
+    </div>    
+
+
+    <iron-ajax
+      id="createRequest"
+      method='post'
+      handle-as="json"
+      on-response="createdBeers"
+      debounce-duration="300"></iron-ajax>
+    <iron-ajax
+      url="{{url}}"
+      id="getBeerRequest"
+      method='get'
+      params='{}'
+      handle-as="json"
+      on-response="gotBeers"
+      debounce-duration="300"></iron-ajax>
+  </template>
+
+  <script>
+    Polymer({
+      is: "beer-create-edit",
+      properties: {
+    	action: {
+    		type: String,
+    		value: "Create"
+    	},  
+    	id: { 
+    		type: String,
+    		value: "",
+    		observer: "onIdChange"
+    	},
+    	name: {
+    		type: String,
+    		value: ""
+    	},
+    	alcohol: {
+    		type: Number,
+    		value: ""
+    	},
+    	description: {
+    		type: String,
+    		value: ""
+    	},
+    	img: {
+    		type: String,
+    		value: ""
+    	},
+    	availability: {
+    		type: String,
+    		value: ""
+    	},
+    	brewery: {
+    		type: String,
+    		value: ""
+    	},
+    	label: {
+    		type: String,
+    		value: ""
+    	},
+    	serving: {
+    		type: String,
+    		value: ""
+    	},
+    	style: {
+    		type: String,
+    		value: ""
+    	},
+      },
+      onIdChange: function() {
+    	if (!this.id) {
+    		return;
+    	}
+    	this.$.getBeerRequest.url= "../beer/"+this.id;
+        this.$.getBeerRequest.generateRequest();
+      },
+      doAction: function() {        
+    	let beer = {
+ 	          "name": this.name,
+ 	          "alcohol": this.alcohol,
+ 	          "description": this.description,
+ 	          "img": this.img,
+ 	          "availability": this.availability,
+ 	          "brewery": this.brewery,
+ 	          "label": this.label,
+ 	          "serving": this.serving,
+ 	          "style": this.style,
+ 	        }
+    	if (this.id) {
+    		beer.id = this.id;
+    	}
+        this.$.createRequest.body = JSON.stringify(beer);
+        this.$.createRequest.headers['content-type'] = 'application/json';
+        if (this.action == "Create") {
+        	this.$.createRequest.url = "/create" 
+        } else {
+        	this.$.createRequest.url = "/edit"; 
+        }
+        this.$.createRequest.generateRequest();
+      },
+      createdBeers: function(evt, ironRequest) {
+        var path = "#/beers";
+        window.history.pushState({}, null, path);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      },
+
+      gotBeers: function(event, ironRequest) {
+        var beer = ironRequest.response;
+        console.log("Beer", beer);
+        this.name = beer.name;
+        this.alcohol = beer.alcohol;
+        this.description = beer.description;
+        this.img = beer.img;
+        this.availability = beer.availability;
+        this.brewery = beer.brewery;
+        this.label = beer.label;
+        this.serving = beer.serving;
+        this.style = beer.style;
+      },
+    })
+  </script>
+</dom-module> 

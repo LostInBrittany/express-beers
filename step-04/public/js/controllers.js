@@ -14,7 +14,7 @@ angular
   }])
   .controller('BeerDetailCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
     $http.get('beer/' + $routeParams.beerId).success(function(data) {
-      $scope.beer = data;
+      $scope.beer = data;      
       $scope.mainImg = $scope.beer.img;
 
       $scope.setImage = function(img) {

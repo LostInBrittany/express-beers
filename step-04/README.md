@@ -1,5 +1,7 @@
 # ExpressJS - Step 04 - Serving the webapp
 
+> If you have your own version of one of the Beer Tutorials frontend (like [Stencil Beers](https://github.com/LostInBrittany/stencil-beers), [Angular Beers](https://github.com/LostInBrittany/angular-beers) or [Vue Beers](https://github.com/LostInBrittany/vue-beers)), please use it instead of the example I use here with Polymer Beers](https://github.com/LostInBrittany/polymer-beers) .
+
 ## Getting the webapp files
 
 Now we need to copy the [Angular Beers](https://github.com/LostInBrittany/angular-beers) or the [Polymer Beers](https://github.com/LostInBrittany/polymer-beers) web application into the `app/public` folder, to get it served from the static express route.
