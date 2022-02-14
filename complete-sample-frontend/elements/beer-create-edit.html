@@ -165,10 +165,7 @@
  	        }
     	if (this.id) {
     		beer.id = this.id;
-    	} else {
-        beer.id = this.name.replace(/\s/g, "");
-      }
-
+    	}
         this.$.createRequest.body = JSON.stringify(beer);
         this.$.createRequest.headers['content-type'] = 'application/json';
         if (this.action == "Create") {

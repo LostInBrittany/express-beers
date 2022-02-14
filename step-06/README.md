@@ -215,4 +215,9 @@ var server = app.listen(3000, function () {
 });
 ```
 
+## Testing with the sample frontend
 
+In the `/complete-sample-frontend` forlder there is a Polymer based frontend that including all CRUD operations. You can copy it into the `public` forder of your project, and you will be able to use it to test that your backend is working as intended.
+
+
+![Testing with the sample frontend](../assets/step-06-creating-a-beer-ui.png)
