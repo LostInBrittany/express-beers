@@ -1,4 +1,4 @@
-ARG GITPOD_IMAGE=gitpod/workspace-base:latest
+ARG GITPOD_IMAGE=gitpod/workspace-full:latest
 FROM ${GITPOD_IMAGE}
 
 USER gitpod

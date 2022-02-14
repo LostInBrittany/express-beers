@@ -41,7 +41,7 @@ app.use('/img', express.static('img'));
 app.use(express.static('public'));
 
 var url = 'mongodb://localhost:27017';
-var dbName = 'test'
+var dbName = 'beers'
 
 
 

@@ -8,18 +8,23 @@ Let's say you already have your beers in a MongoDB database. Now we are going to
 >
 > - Install [MongoDB community server](https://www.mongodb.com/try/download/community)
 > - Install [MongoDB database tools](https://www.mongodb.com/try/download/database-tools)
-> - Start the MongoDB daemon (usually with the command `mongod`)
 >
 > In any case, you need to import the detailed JSON datafiles by using the `mongoimport` tool.
+> Start the MongoDB daemon with the command `mongod`, and then import the JSON files with `mongoimport`:
 >
 >    ```
->      mongoimport --jsonArray --db test --collection beers beers/AffligemBlond.json
->      mongoimport --jsonArray --db test --collection beers beers/AffligemDubbel.json
->      ...
->   ```   
-
-
-
+>    mongoimport --db test --collection beers beers/AffligemBlond.json
+>    mongoimport --db test --collection beers beers/AffligemDubbel.json
+>    mongoimport --db test --collection beers beers/AffligemTripel.json
+>    mongoimport --db test --collection beers beers/ChimayRed.json
+>    mongoimport --db test --collection beers beers/ChimayTriple.json
+>    mongoimport --db test --collection beers beers/StBernardusAbt12.json
+>    mongoimport --db test --collection beers beers/StBernardusPater6.json
+>    mongoimport --db test --collection beers beers/StBernardusTriple.json
+>    mongoimport --db test --collection beers beers/TrappistesRochefort6.json
+>    mongoimport --db test --collection beers beers/TrappistesRochefort8.json
+>    mongoimport --db test --collection beers beers/TrappistesRochefort10.json
+>    ```   
 
 ## Adding the MongoDB driver dependency
 
@@ -53,12 +58,13 @@ Now in our `index.js` we are going to get a `MongoClient` variable:
 
 Connect using the `MongoClient` to your running `mongod` instance by specifying the MongoDB URI. For example, the following code connects to a MongoDB instance that runs on the localhost interface on port 27017 and switch to the `beers` database.
 
-    var url = 'mongodb://localhost:27017/test';
-    MongoClient.connect(url, function(err, client) {
-      console.log("Connected correctly to MongoDB server.");
-      client.close();
-    });
-
+```javascript
+var url = 'mongodb://localhost:27017';
+MongoClient.connect(url, function(err, client) {
+  console.log("Connected correctly to MongoDB server.");
+  client.close();
+});
+```
 
 ## Ask for the beer list
 
