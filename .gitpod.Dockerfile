@@ -17,3 +17,10 @@ RUN mkdir -p /tmp/mongodb && \
     rm -rf /tmp/mongodb && \
     sudo mkdir -p /data/db && \
     sudo chown gitpod:gitpod -R /data/db
+RUN mkdir -p /tmp/mongodb && \
+    cd /tmp/mongodb && \
+    wget -qOmongodb-tools.tgz https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.5.2.tgz && \
+    tar xf mongodb-tools.tgz && \
+    cd mongodb-database-tools-ubuntu2004-x86_64-100.5.2 && \
+    sudo cp bin/* /usr/local/bin/ && \
+    rm -rf /tmp/mongodb 
