@@ -117,3 +117,6 @@ app.get('/beer/:beerId', async function (req, res) {
 
 
 ![Beer list](/assets/step-05-beerdetails.png)
+
+
+

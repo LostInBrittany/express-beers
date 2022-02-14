@@ -26,5 +26,6 @@ As many computers used for the course haven't Git, we have structurated the proj
 1. [JSON beers](./step-03/)
 1. [Serving the webapp](./step-04/)
 1. [Mongo beers](./step-05/)
+1. [Adding a newe beer](./step-06/)
 
 In each step directory you have a README file that explain the objective of the step, that you will do in the working directory `app`. If you have problems or if you get lost, you also have the solution of each step in the step directories.
