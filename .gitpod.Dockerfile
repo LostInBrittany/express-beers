@@ -1,5 +1,5 @@
-ARG base
-FROM ${base}
+ARG GITPOD_IMAGE=gitpod/workspace-base:latest
+FROM ${GITPOD_IMAGE}
 
 USER gitpod
 
