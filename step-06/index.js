@@ -68,7 +68,13 @@ app.post('/create', async function (req, res) {
     return;
   }
   let beer = sanitizeBeer(req.body);
-  try {  
+  try {      
+    let exists = await db.collection('beers').find({id: beer.id}).count();
+    if (exists > 0) {
+      res.status(401);
+      res.send(`There is already a beer with id ${beer.id} in the database \n`)
+      return;
+    }
     let result = await db.collection('beers').insertOne(beer);
     res.send(`A beer was inserted with the _id: ${result.insertedId} \n`);
   } catch(err) {

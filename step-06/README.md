@@ -92,7 +92,10 @@ app.post('/create', async function (req, res) {
 
 ## Writing the beer in the database
 
-The last step is to write the beer in the database. Before writing it, we want to *sanitize* it, i.e. keeping only the fields defining a beer object. To to that, we write a `sanitizeBeer()` function:
+The last step is to write the beer in the database. Before writing it, we want to *sanitize* it, i.e. keeping only the fields defining a beer object. 
+
+
+To to that, we write a `sanitizeBeer()` function:
 
 ```js
 function sanitizeBeer(beer) {
@@ -104,7 +107,7 @@ function sanitizeBeer(beer) {
 }
 ```
 
-And we use before writing data into the database:
+And we use before writing data into the database. We also need to verify that a beer with id `beer.id` doesn't exist yet in the database, to avoid creating a duplicate beer.
 
 ```js
 app.post('/create', async function (req, res) {
@@ -120,6 +123,13 @@ app.post('/create', async function (req, res) {
   try {  
     client = await MongoClient.connect(url);
     const db = client.db(dbName);
+
+    let exists = await db.collection('beers').find({id: beer.id}).count();
+    if (exists > 0) {
+      res.status(401);
+      res.send(`There is already a beer with id ${beer.id} in the database \n`)
+      return;
+    }
     let result = await db.collection('beers').insertOne(beer);
     res.send(`A beer was inserted with the _id: ${result.insertedId} \n`);
   } catch(err) {
@@ -195,7 +205,13 @@ app.post('/create', async function (req, res) {
     return;
   }
   let beer = sanitizeBeer(req.body);
-  try {  
+  try {      
+    let exists = await db.collection('beers').find({id: beer.id}).count();
+    if (exists > 0) {
+      res.status(401);
+      res.send(`There is already a beer with id ${beer.id} in the database \n`)
+      return;
+    }
     let result = await db.collection('beers').insertOne(beer);
     res.send(`A beer was inserted with the _id: ${result.insertedId} \n`);
   } catch(err) {
@@ -217,7 +233,7 @@ var server = app.listen(3000, function () {
 
 ## Testing with the sample frontend
 
-In the `/complete-sample-frontend` forlder there is a Polymer based frontend that including all CRUD operations. You can copy it into the `public` forder of your project, and you will be able to use it to test that your backend is working as intended.
+In the `/complete-sample-frontend` folder there is a Polymer based frontend that including all CRUD operations. You can copy it into the `public` forder of your project, and you will be able to use it to test that your backend is working as intended.
 
 
 ![Testing with the sample frontend](../assets/step-06-creating-a-beer-ui.png)
