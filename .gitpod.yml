@@ -16,6 +16,9 @@ tasks:
       mongoimport --db test --collection beers beers/TrappistesRochefort6.json &&
       mongoimport --db test --collection beers beers/TrappistesRochefort8.json &&
       mongoimport --db test --collection beers beers/TrappistesRochefort10.json
+  - name: Database
+    before: npm install
+    command: node index.js
 
 ports:
   - port: 3000
