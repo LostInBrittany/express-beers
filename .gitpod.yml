@@ -3,21 +3,41 @@ image:
 
 tasks:
   - name: Database
-    before: mongod &
-    command: >
+    command: mongod 
+  - command: >
       gp await-port 27017 &&
-      mongoimport --db test --collection beers beers/AffligemBlond.json && 
-      mongoimport --db test --collection beers beers/AffligemDubbel.json &&
-      mongoimport --db test --collection beers beers/AffligemTripel.json &&
-      mongoimport --db test --collection beers beers/ChimayRed.json &&
-      mongoimport --db test --collection beers beers/ChimayTriple.json &&
-      mongoimport --db test --collection beers beers/StBernardusAbt12.json &&
-      mongoimport --db test --collection beers beers/StBernardusPater6.json &&
-      mongoimport --db test --collection beers beers/StBernardusTriple.json &&
-      mongoimport --db test --collection beers beers/TrappistesRochefort6.json &&
-      mongoimport --db test --collection beers beers/TrappistesRochefort8.json &&
+      mongoimport --db test --collection beers beers/AffligemBlond.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/AffligemDubbel.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/AffligemTripel.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/ChimayRed.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/ChimayTriple.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/StBernardusAbt12.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/StBernardusPater6.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/StBernardusTriple.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/TrappistesRochefort6.json
+  - command: >
+      gp await-port 27017 &&
+      mongoimport --db test --collection beers beers/TrappistesRochefort8.json
+  - command: >
+      gp await-port 27017 &&
       mongoimport --db test --collection beers beers/TrappistesRochefort10.json
-  - name: Database
+  - name: Node
     before: npm install
     command: node index.js
 
