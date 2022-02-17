@@ -50,7 +50,9 @@ tasks:
       exit
   - name: Node
     before: npm install
-    command: node index.js
+    command: node index.js 
+  - name: Serving
+    command: gp await-port 3000 && gp preview $(gp url 3000)/beers
 
 ports:
   - port: 3000
