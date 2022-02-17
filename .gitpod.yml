@@ -5,7 +5,7 @@ tasks:
   - name: Database
     before: mongod &
     command: >
-      gp await-port 27017
+      gp await-port 27017 &&
       mongoimport --db test --collection beers beers/AffligemBlond.json && 
       mongoimport --db test --collection beers beers/AffligemDubbel.json &&
       mongoimport --db test --collection beers beers/AffligemTripel.json &&
