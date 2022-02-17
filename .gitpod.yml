@@ -3,8 +3,8 @@ image:
 
 tasks:
   - name: Database
+    before: mongod &
     command: >
-      mongod & &&
       mongoimport --db test --collection beers beers/AffligemBlond.json && 
       mongoimport --db test --collection beers beers/AffligemDubbel.json &&
       mongoimport --db test --collection beers beers/AffligemTripel.json &&
